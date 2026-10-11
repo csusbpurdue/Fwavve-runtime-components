@@ -200,3 +200,13 @@ echo "Installing from $REPO_DIR"
     # --unattended : don't change your shell and don't start zsh.
     # KEEP_ZSHRC   : don't overwrite the ~/.zshrc we just copied.
     KEEP_ZSHRC=yes sh "$tmp" --unattended
+
+# Install cowsay into ~/.local (no root needed)
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+git clone https://github.com/cowsay-org/cowsay.git
+cd cowsay
+make install prefix=$HOME/.local
+
+# Add the train cow used by boilersay (site-cows is on cowsay's default path)
+mkdir -p "$HOME/.local/share/cowsay/site-cows"
+cp "$DOTFILES_DIR/train.cow" "$HOME/.local/share/cowsay/site-cows/"
